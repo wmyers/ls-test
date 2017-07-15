@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {timers} from './timers';
+import timers from './timers';
 
 const reducers = combineReducers({
   timers

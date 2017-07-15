@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
 import styles from './counters.css';
 import {editCounter, deleteCounter} from '../../redux-store/modules/timers';
 import {getCounters} from '../../redux-store/selectors/timers';
@@ -10,19 +11,20 @@ import {getCounters} from '../../redux-store/selectors/timers';
 class Counter extends Component {
 
   static propTypes = {
-    value: PropTypes.number.isRequired,
-    id: PropTypes.number.isRequired
-    editCounter: PropTypes.func.isRequired
+    value: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    editCounter: PropTypes.func.isRequired,
     deleteCounter: PropTypes.func.isRequired
   }
 
   // just in case you are wondering about this:
   // https://facebook.github.io/react/docs/react-without-es6.html#setting-the-initial-state
-  constructor({value}) {
-    this.state = {value};
+  constructor(props) {
+    super(props);
+    this.state = {value: props.value};
   }
   
-  handleChange(event) {
+  handleChange = (event) => {
     const {
       id, 
       value, 
@@ -38,7 +40,7 @@ class Counter extends Component {
     });
   }
 
-  handleDelete(event) {
+  handleDelete = () => {
     const {
       id, 
       deleteCounter
@@ -79,7 +81,7 @@ const mapDispatchToProps = {
 
 export class Counters extends Component {
   static propTypes = {
-    counters: PropTypes.array.isRequired,
+    counters: PropTypes.object.isRequired,
     editCounter: PropTypes.func.isRequired,
     deleteCounter: PropTypes.func.isRequired
   }
@@ -92,16 +94,18 @@ export class Counters extends Component {
     } = this.props;
     return (
       <div className={styles.counters}>
-        {Object.keys(counters).map((id) =>
-          const {value} = counters[id];
-          const props = {
-            id,
-            value,
-            editCounter,
-            deleteCounter
-          }
-          return <Counter {...props} />
-        )}
+        {
+          Object.keys(counters).map((id) => {
+            const {value} = counters[id];
+            const props = {
+              id,
+              value,
+              editCounter,
+              deleteCounter
+            }
+            return <Counter key={id} {...props} />;
+          })
+        }
       </div>
     );
   }

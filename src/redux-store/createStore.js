@@ -1,8 +1,8 @@
 import React from 'react';  
 import {createStore as initialCreateStore, applyMiddleware, compose} from 'redux';
-import {persistState} = 'redux-devtools';
-import DevTools from '.../dev/DevTools';
-import reducer = './modules/reducer';
+import {persistState} from 'redux-devtools';
+import DevTools from '../dev/DevTools';
+import reducer from './modules/reducer';
 import createServiceMiddleware from './middleware/serviceMiddleware';
 
 export default function createStore(service, data) {
@@ -18,7 +18,6 @@ export default function createStore(service, data) {
   } else {
     enhancer = applyMiddleware(...middleware);
   }
-
   return initialCreateStore(reducer, data, enhancer);
 }
 

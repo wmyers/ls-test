@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
 import styles from './controlBar.css';
 import {addCounter} from '../../redux-store/modules/timers';
 import {getCountersLog} from '../../redux-store/selectors/timers';
@@ -21,7 +22,7 @@ export class ControlBar extends Component {
     addCounter: PropTypes.func.isRequired
   }
 
-  handleAdd() {
+  handleAdd = () => {
     this.props.addCounter();
   }
 
@@ -29,7 +30,7 @@ export class ControlBar extends Component {
     return (
       <div className={styles.controlBar}>
         <button name="addButton" type="button" onClick={this.handleAdd}>Add new counter</button>
-        <textarea name="countersLog" readonly>{this.props.countersLog}</textarea>
+        <textarea name="countersLog" readOnly value={this.props.countersLog} />
       </div>
     );
   }

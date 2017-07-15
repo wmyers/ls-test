@@ -11,7 +11,8 @@ export const DELETE_COUNTER_FAIL = 'delete_counter_fail';
 
 const initialState = {
   entities:{},
-  log: ''
+  log: '',
+  totalAdded: 0
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -24,39 +25,44 @@ export default function reducer(state = initialState, action = {}) {
     case DELETE_COUNTER_FAIL:
       return state;
     case ADD_COUNTER_SUCCESS:
-      const id = Object.keys(state.entities).length;
+      const id = state.totalAdded.toString();
       return {
         entities: {
           ...state.entities,
           [id]: action.counter
         },
-        log: updateLog({type: action.type, id}, state.log)
+        log: updateLog({type: action.type, id}, state.log),
+        totalAdded: state.totalAdded +1
       };
     case EDIT_COUNTER_SUCCESS:
-      const {id, value} = action;
+      const {id: editedId, value} = action;
       return {
         entities: {
           ...state.entities,
-          [id]: {value}
+          [editedId]: {value}
         },
-        log: updateLog(action, state.log)
+        log: updateLog(action, state.log),
+        totalAdded: state.totalAdded
       }; 
     case DELETE_COUNTER_SUCCESS:
-      const {[action.id], ...rest} = state.entities;
+      const {[action.id]: foo, ...rest} = state.entities;
       return {
         entities: {
           ...rest
         },
-        log: updateLog(action, state.log)
+        log: updateLog(action, state.log),
+        totalAdded: state.totalAdded
       };
+    default:
+      return state;
   }
 };
 
-export const addCounter = (counter = {value: 0}) => {
+export const addCounter = (counter = {value: '0'}) => {
   return {
     types: [ADD_COUNTER, ADD_COUNTER_SUCCESS, ADD_COUNTER_FAIL],
     promise: ({service}) => {
-      return service.timer.addCounter({counter});
+      return service.timers.addCounter({counter});
     },
     counter
   }
@@ -66,7 +72,7 @@ export const editCounter = ({id, value}) => {
   return {
     types: [EDIT_COUNTER, EDIT_COUNTER_SUCCESS, EDIT_COUNTER_FAIL],
     promise: ({service}) => {
-      return service.timer.editCounter({counter});
+      return service.timers.editCounter({id, value});
     },
     id,
     value
@@ -77,7 +83,7 @@ export const deleteCounter = ({id}) => {
   return {
     types: [DELETE_COUNTER, DELETE_COUNTER_SUCCESS, DELETE_COUNTER_FAIL],
     promise: ({service}) => {
-      return service.timer.deleteCounter(id);
+      return service.timers.deleteCounter({id});
     },
     id
   }

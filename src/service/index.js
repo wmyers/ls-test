@@ -1,4 +1,4 @@
-export const timer = (client) => {
+const timers = (client) => {
   return {
     addCounter() {
       return client.post();
@@ -11,3 +11,10 @@ export const timer = (client) => {
     }
   }
 };
+
+export default (client) => {
+  return {
+    timers: timers(client)
+  }
+}
+

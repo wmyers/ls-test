@@ -1,16 +1,16 @@
 import sinon from 'sinon';
 import {expect} from 'chai';
-import {timer} from '../service';
+import {timers} from '../service';
 
 describe('service', () => {
-  describe('#timer service', () => {
+  describe('#timers service', () => {
     it('calls the api client with an url', () => {
       const url = 'some.txt';
       const apiClient = {
         get: sinon.spy(() => Promise.resolve())
       };
 
-      timer(apiClient).getTimers(url);
+      timers(apiClient).getTimers(url);
       expect(apiClient.get.calledOnce).to.be.true;
       expect(apiClient.get.calledWithExactly(url)).to.be.true;
     });
@@ -22,14 +22,14 @@ describe('service', () => {
         get: sinon.spy(() => Promise.resolve(apiResponse))
       };
       const url = 'some.txt';
-      const timerService = timer(apiClient);
+      const timersService = timers(apiClient);
 
       let response1, response2;
 
-      timerService.getTimers(url)
+      timersService.getTimers(url)
       .then(res1 => {
         response1 = res1;
-        return timerService.getTimers(url);
+        return timersService.getTimers(url);
       })
       .then(res2 => {
         response2 = res2;
