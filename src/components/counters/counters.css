@@ -1,0 +1,36 @@
+/*.bookText {
+  font-family: 'Serif';
+  background-color: lightgray;
+}
+
+.wordsInText {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.wordsInText > div {
+  flex: 0 auto;
+  margin: 2px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  padding: 2px 3px;
+  color: gray;
+}
+
+.wordsInText > .isPrime {
+  color: white;
+  background-color: red;
+}
+
+.controlBar {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin: 20px;
+  padding: 20px;
+  background-color: teal;
+}
+
+.controlBar button {
+  flex: 0 200px;
+}*/
