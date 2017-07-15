@@ -18,19 +18,19 @@ const get = (url) => {
 
 const post = () => {
   return new Promise((resolve) => {
-    setTimeout(() => return resolve('added successfully'), 1000);
+    setTimeout(() => return resolve('added successfully'), 200);
   })
 } 
 
 const patch = () => {
   return new Promise((resolve) => {
-    setTimeout(() => return resolve('edited successfully'), 1000);
+    setTimeout(() => return resolve('edited successfully'), 200);
   })
 } 
 
 const del = () => {
   return new Promise((resolve) => {
-    setTimeout(() => return resolve('deleted successfully'), 1000);
+    setTimeout(() => return resolve('deleted successfully'), 200);
   })
 } 
 

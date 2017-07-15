@@ -1,0 +1,16 @@
+.controlBar {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin: 20px;
+  padding: 20px;
+  background-color: lightslategray;
+}
+
+.controlBar button {
+  flex: 0 150px;
+}
+
+.controlBar textarea {
+  flex: 0 250px;
+}

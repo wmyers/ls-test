@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import styles from './counters.css';
-import {editCounter, deleteCounter} from '../../redux-store/selectors/timers';
-import {getCounters} from '../../redux-store/modules/timers';
+import {editCounter, deleteCounter} from '../../redux-store/modules/timers';
+import {getCounters} from '../../redux-store/selectors/timers';
 
 // NB normally this would be an SFC, with state controlled entirely on redux or a parent
 // component. But you are using an editable text field to change state, which means you need
@@ -55,7 +55,7 @@ class Counter extends Component {
     return (
       <div className={styles.counter} >
         <label>
-          {id}:
+          <span className={styles.uniqueId}>{id}</span>
           <input type="number" value={this.state.value} onChange={this.handleChange} />
         </label>
         <button name="deleteButton" type="button" onClick={this.handleDelete}>Delete</button>
@@ -77,17 +77,31 @@ const mapDispatchToProps = {
   deleteCounter
 }
 
-// ----------------------------------
-
 export class Counters extends Component {
   static propTypes = {
-    counters: PropTypes.array.isRequired
+    counters: PropTypes.array.isRequired,
+    editCounter: PropTypes.func.isRequired,
+    deleteCounter: PropTypes.func.isRequired
   }
 
   render() {
+    const {
+      counters,
+      editCounter,
+      deleteCounter
+    } = this.props;
     return (
       <div className={styles.counters}>
-
+        {Object.keys(counters).map((id) =>
+          const {value} = counters[id];
+          const props = {
+            id,
+            value,
+            editCounter,
+            deleteCounter
+          }
+          return <Counter {...props} />
+        )}
       </div>
     );
   }
