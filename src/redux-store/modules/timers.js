@@ -32,7 +32,7 @@ export default function reducer(state = initialState, action = {}) {
           [id]: action.counter
         },
         log: updateLog({type: action.type, id}, state.log),
-        totalAdded: state.totalAdded +1
+        totalAdded: state.totalAdded + 1
       };
     case EDIT_COUNTER_SUCCESS:
       const {id: editedId, value} = action;
@@ -89,14 +89,14 @@ export const deleteCounter = ({id}) => {
   }
 }
 
-export const updateLog = ({type, id}, log = '') => {
+export const updateLog = ({type, id, value}, log = '') => {
   let logEntry;
   switch(type) {
     case ADD_COUNTER_SUCCESS:
       logEntry = `Added a new counter with id: ${id}`;
       break;
     case EDIT_COUNTER_SUCCESS:
-      logEntry = `Edited counter with id: ${id}`;
+      logEntry = `Edited counter with id: ${id} with value: ${value}`;
       break;
     case DELETE_COUNTER_SUCCESS:
       logEntry = `Deleted counter with id: ${id}`;

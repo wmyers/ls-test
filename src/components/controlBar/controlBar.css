@@ -2,15 +2,17 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-  margin: 20px;
+  margin: 20px 4px;
   padding: 20px;
   background-color: lightslategray;
+  min-height: 100px;
 }
 
 .controlBar button {
   flex: 0 150px;
+  height: 40px;
 }
 
 .controlBar textarea {
-  flex: 0 250px;
+  flex: 1 250px;
 }
